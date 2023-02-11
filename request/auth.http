@@ -1,0 +1,9 @@
+### Iniciar sesión
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+  "email":"ragnar@mail.com",
+  "password": "tengononi2023"
+}
+

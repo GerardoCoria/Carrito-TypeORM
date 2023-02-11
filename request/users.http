@@ -1,0 +1,26 @@
+### Obtener todos los usuarios
+GET {{hostname}}/users/
+
+### Nuevo usuario
+POST {{hostname}}/users
+Content-Type: application/json
+
+{
+  "name":"Emily",
+  "email":"emily@mail.com",
+  "password": "123456",
+  "role":"admin"
+}
+
+### Modificar usuario
+PUT {{hostname}}/users/pansa@mail.com
+Content-Type: application/json
+
+{
+	"role":"admin"
+}
+
+### Borrar usuario
+DELETE {{hostname}}/users/63d94a947476cb97670c9848
+
+

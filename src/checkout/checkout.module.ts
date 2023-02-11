@@ -1,4 +1,14 @@
 import { Module } from '@nestjs/common';
 
-@Module({})
+import { CheckoutController } from "./controllers/checkout.controller";
+import { Checkout, CheckoutSchema } from './entities/checkout.entity';
+import { CheckoutService } from "./services/checkout.service";
+
+@Module({
+  imports:[],
+  controllers:[CheckoutController],
+  providers: [CheckoutService],
+  exports:[CheckoutService]
+})
 export class CheckoutModule {}
+
