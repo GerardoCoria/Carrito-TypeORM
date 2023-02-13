@@ -8,40 +8,46 @@ import { Order } from '../entities/order.entity';
 export class OrdersService {
 
   private counterId = 1;
-  private orders: Order[] = []
+  private orders: Order[] = [{
+    id: 1,
+    name:'string'
+    //date:Date;
+    //customer: User;
+    //products:Product;
+  }]
 
   findAll() {
     return this.orders;
   }
 
   findOne(id: number) {
-    const product = this.orders.find((item) => item.id === id);
-    if (!product) {
-      throw new NotFoundException(`Product #${id} not found`);
+    const order = this.orders.find((item) => item.id === id);
+    if (!order) {
+      throw new NotFoundException(`Order #${id} not found`);
     }
-    return product;
+    return order;
   }
 
   ordersCustomer
   oneByCustomer
   oneItemFromOrder
 
-  create(payload: CreateProductDto) {
+  create(payload: CreateOrderDto) {
     console.log(payload);
     this.counterId = this.counterId + 1;
-    const newProduct = {
+    const newOrder = {
       id: this.counterId,
       ...payload,
     };
-    this.orders.push(newProduct);
-    return newProduct;
+    this.orders.push(newOrder);
+    return newOrder;
   }
 
-  update(id: number, payload: UpdateProductDto) {
-    const product = this.findOne(id);
+  update(id: number, payload: UpdateOrderDto) {
+    const order = this.findOne(id);
     const index = this.orders.findIndex((item) => item.id === id);
     this.orders[index] = {
-      ...product,
+      ...order,
       ...payload,
     };
     return this.orders[index];
@@ -50,7 +56,7 @@ export class OrdersService {
   remove(id: number) {
     const index = this.orders.findIndex((item) => item.id === id);
     if (index === -1) {
-      throw new NotFoundException(`Product #${id} not found`);
+      throw new NotFoundException(`Order #${id} not found`);
     }
     this.orders.splice(index, 1);
     return true;

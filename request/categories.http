@@ -1,8 +1,8 @@
 ### Leer todas las categorías
-GET http://localhost:3001/categories
+GET {{hostname}}/categories
 
 ### Crear una categoría
-POST http://localhost:3001/categories
+POST {{hostname}}/categories
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Editar una categoría
-PUT http://localhost:3001/categories
+PUT {{hostname}}/categories
 
 ### Borrar una categoría
-DELETE http://localhost:3001/categories
+DELETE {{hostname}}/categories

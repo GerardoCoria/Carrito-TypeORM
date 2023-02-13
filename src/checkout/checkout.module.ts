@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { CheckoutController } from "./controllers/checkout.controller";
-import { Checkout, CheckoutSchema } from './entities/checkout.entity';
+import { Checkout } from './entities/checkout.entity';
 import { CheckoutService } from "./services/checkout.service";
 
 @Module({

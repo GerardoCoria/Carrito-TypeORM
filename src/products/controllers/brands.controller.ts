@@ -13,7 +13,7 @@ export class BrandsController {
   }
 
   @Get(':id')
-  get(@Param('id') id: string) {
+  get(@Param('id') id: number) {
     return this.brandsService.findOne(id);
   }
 
@@ -23,12 +23,12 @@ export class BrandsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() payload: UpdateBrandDto) {
+  update(@Param('id') id: number, @Body() payload: UpdateBrandDto) {
     return this.brandsService.update(id, payload);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.brandsService.remove(id);
   }
 }

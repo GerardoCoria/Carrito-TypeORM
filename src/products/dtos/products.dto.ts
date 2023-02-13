@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsNotEmpty, IsPositive, IsOptional, Min, ValidateIf, ValidateNested, IsMongoId, IsDate } from 'class-validator'
+import { IsString, IsNumber, IsNotEmpty, IsPositive, IsOptional, Min, ValidateIf, ValidateNested, IsDate } from 'class-validator'
 import { PartialType, ApiProperty} from "@nestjs/swagger";
 
 import { CreateCategoryDto } from "../dtos/categories.dto";
@@ -26,11 +26,9 @@ export class CreateProductDto{
 
   @IsNotEmpty()
   //@ValidateNested()
-  @IsMongoId()
   @ApiProperty({description: "Indica la categoría del producto"})
   readonly category:CreateCategoryDto;
 
-  @IsMongoId()
   readonly brand:string;
 
   @IsNotEmpty()

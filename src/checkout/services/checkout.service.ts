@@ -7,36 +7,41 @@ import { Checkout } from '../entities/checkout.entity';
 export class CheckoutService {
 
   private counterId = 1;
-  private checkout: Checkout[] = []
+  private checkout: Checkout[] = [{
+    id:1,
+    name:'string',
+    price: 111,
+    quantity: 1
+  }]
 
   findAll() {
     return this.checkout;
   }
 
   findOne(id: number) {
-    const product = this.checkout.find((item) => item.id === id);
-    if (!product) {
-      throw new NotFoundException(`Product #${id} not found`);
+    const checkout = this.checkout.find((item) => item.id === id);
+    if (!checkout) {
+      throw new NotFoundException(`Checkout #${id} not found`);
     }
-    return product;
+    return checkout;
   }
 
-  create(payload: CreateProductDto) {
+  create(payload: CreateCheckoutDto) {
     console.log(payload);
     this.counterId = this.counterId + 1;
-    const newProduct = {
+    const newCheckout = {
       id: this.counterId,
       ...payload,
     };
-    this.checkout.push(newProduct);
-    return newProduct;
+    this.checkout.push(newCheckout);
+    return newCheckout;
   }
 
-  update(id: number, payload: UpdateProductDto) {
-    const product = this.findOne(id);
+  update(id: number, payload: UpdateCheckoutDto) {
+    const checkout = this.findOne(id);
     const index = this.checkout.findIndex((item) => item.id === id);
     this.checkout[index] = {
-      ...product,
+      ...checkout,
       ...payload,
     };
     return this.checkout[index];
@@ -45,7 +50,7 @@ export class CheckoutService {
   remove(id: number) {
     const index = this.checkout.findIndex((item) => item.id === id);
     if (index === -1) {
-      throw new NotFoundException(`Product #${id} not found`);
+      throw new NotFoundException(`Checkout #${id} not found`);
     }
     this.checkout.splice(index, 1);
     return true;

@@ -15,7 +15,7 @@ export class CheckoutController {
   }
 
   @Get(':id')
-  get(@Param('id') id: string) {
+  get(@Param('id') id: number) {
     return this.checkoutService.findOne(id);
   }
 
@@ -25,12 +25,12 @@ export class CheckoutController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() payload: UpdateCheckoutDto) {
+  update(@Param('id') id: number, @Body() payload: UpdateCheckoutDto) {
     return this.checkoutService.update(id, payload);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.checkoutService.remove(id);
   }
 }

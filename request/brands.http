@@ -1,8 +1,8 @@
 ### Leer todas las marcas
-GET http://localhost:3001/brands
+GET {{hostname}}/brands
 
 ### Crear una marca
-POST http://localhost:3001/brands
+POST {{hostname}}/brands
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Editar una marca
-PUT http://localhost:3001/brands
+PUT {{hostname}}/brands
 
 ### Eliminar una marca
-DELETE http://localhost:3001/brands
+DELETE {{hostname}}/brands

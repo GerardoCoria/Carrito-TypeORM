@@ -29,25 +29,25 @@ export class OrdersController {
 
   @Put(':id')
   @ApiOperation({summary: "Modifica los datos de la orden de compra relacionada con el usuario, como el nombre de la misma."})
-  update(@Param('id') id: string, @Body() payload: UpdateOrderDto) {
+  update(@Param('id') id: number, @Body() payload: UpdateOrderDto) {
     return this.orderService.update(id, payload);
   }
 
-  @Put(':id/items')
-  @ApiOperation({summary: "Toma el ID de la orden de compra, busca es orden y la modifica, agregándole productos."})
-  updateProducts(@Param('id') id: string, @Body() payload: AddProductsToOrderDto, @Headers('Authorization') auth: string) {
-    return this.orderService.addProducts(id, payload.products, auth);
-  }
+  //@Put(':id/items')
+  //@ApiOperation({summary: "Toma el ID de la orden de compra, busca es orden y la modifica, agregándole productos."})
+  //updateProducts(@Param('id') id: number, @Body() payload: AddProductsToOrderDto, @Headers('Authorization') auth: string) {
+  //  return this.orderService.addProducts(id, payload.products, auth);
+  //}
 
   @Delete(':id')
   @ApiOperation({summary: "Elimina la orden de compra relacionada con el usuario."})
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.orderService.remove(id);
   }
 
-  @Delete(':id/item/:itemId')
-  @ApiOperation({summary: "Elimina un producto de la orden de compra del usuario."})
-  removeProduct(@Param('id') id: string, @Param('itemId') itemId:string) {
-    return this.orderService.removeProduct(id, itemId);
-  }
+  ///@Delete(':id/item/:itemId')
+  ///@ApiOperation({summary: "Elimina un producto de la orden de compra del usuario."})
+  ///removeProduct(@Param('id') id: string, @Param('itemId') itemId:string) {
+  ///  return this.orderService.removeProduct(id, itemId);
+  ///}
 }

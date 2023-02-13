@@ -28,6 +28,8 @@ export class UsersService {
     return user;
   }
 
+  findByEmail
+
   create(payload: CreateUserDto) {
     console.log(payload);
     this.counterId = this.counterId + 1;
