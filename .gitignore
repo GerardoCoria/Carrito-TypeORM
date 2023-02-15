@@ -35,3 +35,6 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 /*.env
+/postgres_data
+/mysql_data
+/myqsl_data

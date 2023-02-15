@@ -1,31 +1,22 @@
-import { Injectable, NotFoundException} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
 import { Product } from '../entities/product.entity'
 import { CreateProductDto, UpdateProductDto, FilterProductsDto } from '../dtos/products.dto';
+//import { CategoryName } from "../entities/category.entity";
 
 @Injectable()
 export class ProductsService {
 
-  private counterId = 1;
-  private products: Product[] = [{
-    id:1,
-    name: 'string',
-    description: 'string',
-    price: 111,
-    stock:111,
-    //category:'Category',
-    //brand : 'Brand',
-    //expires:Date,
-    batch:'string',
-    keys:'string'
-  }]
+  constructor(@InjectRepository(Product) private products:Repository<Product>){}
 
   findAll() {
-    return this.products;
+    return this.products.find();
   }
 
-  findOne(id: number) {
-    const product = this.products.find((item) => item.id === id);
+  async findOne(id: number) {
+    const product = await this.products.findOneBy({id:id});
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
@@ -33,32 +24,21 @@ export class ProductsService {
   }
 
   create(payload: CreateProductDto) {
-    console.log(payload);
-    this.counterId = this.counterId + 1;
-    const newProduct = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.products.push(newProduct);
-    return newProduct;
+    const newProduct = this.products.create(payload)
+    return this.products.save(newProduct)
   }
 
-  update(id: number, payload: UpdateProductDto) {
-    const product = this.findOne(id);
-    const index = this.products.findIndex((item) => item.id === id);
-    this.products[index] = {
-      ...product,
-      ...payload,
-    };
-    return this.products[index];
+  async update(id: number, payload: UpdateProductDto) {
+    const product = await this.products.findOneBy({id:id});
+    this.products.merge(product, payload);
+    return this.products.save(product);
   }
 
-  remove(id: number) {
-    const index = this.products.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`Product #${id} not found`);
+  async remove(id: number) {
+    const existProduct = await this.findOne(id)
+    if(!existProduct){
+      throw new BadRequestException(`Product #${id} not found`);
     }
-    this.products.splice(index, 1);
-    return true;
+    return this.products.delete({id:id})
   }
 }

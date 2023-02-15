@@ -1,5 +1,5 @@
 ### Iniciar sesión
-POST http://localhost:3001/auth/login
+POST {{hostname}}/auth/login
 Content-Type: application/json
 
 {

@@ -11,7 +11,7 @@ import { RolesGuard } from "../../auth/guards/roles.guard";
 import { ParseIntPipe } from "../../common/parse-int.pipe";
 
 @ApiTags('Productos')
-@UseGuards(JwtAuthGuard, RolesGuard)
+//@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('products')
 export class ProductsController {
 
@@ -31,9 +31,8 @@ export class ProductsController {
     return this.services.findOne(id)
   }
 
-
   @Post()
-  @Roles(Role.ADMIN)
+  //@Roles(Role.ADMIN)
   @ApiOperation({summary:'Agrega un producto nuevo'})
   create(@Body() payload:CreateProductDto){
     return this.services.create(payload)

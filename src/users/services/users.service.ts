@@ -1,11 +1,14 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException} from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, NotFoundException} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { Client } from 'pg';
 
 import { CreateUserDto, UpdateUserDto} from '../dtos/user.dto';
 import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UsersService {
+
+  constructor(@Inject('PG') private clientPg: Client){}
 
   private counterId = 1;
   private users:User[]=[{
@@ -15,6 +18,17 @@ export class UsersService {
     password:'string',
     role: 'string',
   },]
+
+  getInfoDB(){
+    return new Promise((resolve, reject) => {
+      this.clientPg.query('SELECT * FROM tasks', (err, res) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(res.rows);
+      });
+    });
+  }
 
   findAll() {
     return this.users;

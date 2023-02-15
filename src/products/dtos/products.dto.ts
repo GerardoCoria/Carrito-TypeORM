@@ -7,10 +7,12 @@ import { CreateCategoryDto } from "../dtos/categories.dto";
 export class CreateProductDto{
   @IsString({message: 'Debe ingresar texto'})
   @IsNotEmpty({message: "No debe estar vacío"})
+  @ApiProperty()
   readonly name:string;
 
   @IsString({message: 'Debe ingresar texto'})
   @IsNotEmpty({message: "No debe estar vacío"})
+  @ApiProperty()
   readonly description:string;
 
   @IsNumber({allowNaN:false}, {message: "Debe ser un número"})
@@ -22,25 +24,25 @@ export class CreateProductDto{
   @IsNumber({allowNaN:false}, {message: "Debe ser un número"})
   @IsNotEmpty({message: "No debe estar vacío"})
   @IsPositive({message: "El número debe ser mayor a cero."})
+  @ApiProperty()
   readonly stock:number;
 
-  @IsNotEmpty()
-  //@ValidateNested()
-  @ApiProperty({description: "Indica la categoría del producto"})
-  readonly category:CreateCategoryDto;
+  //@IsNotEmpty()
+  //@ApiProperty({description: "Indica la categoría del producto"})
+  //readonly category:CreateCategoryDto;
 
+  @IsNotEmpty()
+  @ApiProperty()
   readonly brand:string;
 
   @IsNotEmpty()
   @IsDate()
+  @ApiProperty()
   readonly expires:Date;
 
   @IsNotEmpty()
+  @ApiProperty()
   readonly batch:string;
-
-  @IsString()
-  @IsOptional()
-  readonly keys:string;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto){}
