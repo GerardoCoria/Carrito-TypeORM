@@ -19,7 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-esm -d src/database/dataSource.ts",
-    "migration:generate": "npm run typeorm migration:generate ./src/database/migrations/init"
+    "migration:generate": "npm run typeorm migration:generate ./src/database/migrations/init",
+    "migration:run": "npm run typeorm -- migration:run -d src/database/migrations",
+    "migration:show": "npm run typeorm -- migration:show"
   },
   "dependencies": {
     "@nestjs/axios": "^2.0.0",
