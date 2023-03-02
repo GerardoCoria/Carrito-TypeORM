@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsNotEmpty, IsPositive, IsOptional, Min, ValidateIf, ValidateNested, IsDate } from 'class-validator'
+import { IsString, IsNumber, IsNotEmpty, IsPositive, IsOptional, Min, ValidateIf, ValidateNested, IsDate, IsArray } from 'class-validator'
 import { PartialType, ApiProperty} from "@nestjs/swagger";
 
 import { CreateCategoryDto } from "../dtos/categories.dto";
@@ -44,6 +44,11 @@ export class CreateProductDto{
   @IsPositive()
   @ApiProperty()
   readonly brandId:number;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  @IsArray()
+  readonly categoriesId:number[];
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto){}

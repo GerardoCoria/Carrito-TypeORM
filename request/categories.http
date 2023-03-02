@@ -1,12 +1,15 @@
 ### Leer todas las categorías
 GET {{hostname}}/categories
 
+### Leer una categoría
+GET {{hostname}}/categories/2
+
 ### Crear una categoría
 POST {{hostname}}/categories
 Content-Type: application/json
 
 {
-  "name": "Gaseosas"
+  "name": "Almacén"
 }
 
 ### Editar una categoría
