@@ -22,7 +22,8 @@ Content-Type: application/json
   "stock":452,
   "brand": "Arcor",
   "expires": "2023-09-09",
-  "batch": "ABC113"
+  "batch": "ABC113",
+  "image": "https://statics-cuidateplus.marca.com/cms/styles/amp_1200x675_16_9/azblob/chocolate-tableta.jpg.webp?itok=A596xmW8"
 }
 
 //{

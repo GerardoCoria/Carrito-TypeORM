@@ -1,5 +1,9 @@
 ### Obtener todos los usuarios
-GET {{hostname}}/users/
+GET {{hostname}}/users
+
+### Traer un solo usuario
+GET {{hostname}}/users/emily@mail.com
+
 
 ### Nuevo usuario
 POST {{hostname}}/users
@@ -7,8 +11,10 @@ Content-Type: application/json
 
 {
   "name":"Emily",
+  "lastname":"Rvgn",
   "email":"emily@mail.com",
   "password": "123456",
+  "phone": "0303456",
   "role":"admin"
 }
 

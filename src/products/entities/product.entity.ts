@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, UpdateDateColumn} from "typeorm";
 
 import { Brand } from "../entities/brand.entity";
 import { Category, CategoryName } from "../entities/category.entity";
@@ -21,7 +21,8 @@ export class Product{
   stock:number;
 
   /**
-   * !ver PARA MODIFICAR */
+   * !ver PARA MODIFICAR
+   * */
   //@Column({type: 'enum', enum: CategoryName, nullable: true,})
   //category: CategoryName;
 
@@ -33,4 +34,19 @@ export class Product{
 
   @Column({type: 'varchar', length: 255})
   batch:string;
+
+  @Column({type: 'varchar'})
+  image:string;
+
+  @CreateDateColumn({
+    type:'timestamptz',
+    default: ()=> 'CURRENT_TIMESTAMP',
+  })
+  createdAt:Date;
+
+  @UpdateDateColumn({
+    type:'timestamptz',
+    default: ()=> 'CURRENT_TIMESTAMP',
+  })
+  updatedAt:Date;
 }

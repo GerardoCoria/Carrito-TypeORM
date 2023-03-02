@@ -9,18 +9,13 @@ import { UsersService } from '../services/users.service';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Get('db')
-  gete(){
-    return this.usersService.getInfoDB()
-  }
-
   @Get()
   findAll() {
     return this.usersService.findAll();
   }
 
   @Get(':id')
-  get(@Param('id') id: number) {
+  get(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
@@ -35,7 +30,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
 }

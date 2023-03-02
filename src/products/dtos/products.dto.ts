@@ -43,6 +43,10 @@ export class CreateProductDto{
   @IsNotEmpty()
   @ApiProperty()
   readonly batch:string;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly image:string;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto){}

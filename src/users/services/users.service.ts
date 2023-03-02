@@ -1,6 +1,8 @@
-import { HttpException, HttpStatus, Inject, Injectable, NotFoundException} from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Inject, Injectable, NotFoundException} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Client } from 'pg';
+import { Repository } from 'typeorm';
 
 import { CreateUserDto, UpdateUserDto} from '../dtos/user.dto';
 import { User } from '../entities/user.entity';
@@ -8,34 +10,29 @@ import { User } from '../entities/user.entity';
 @Injectable()
 export class UsersService {
 
-  constructor(@Inject('PG') private clientPg: Client){}
+  constructor(
+    @InjectRepository(User) private users:Repository<User>
+     //@Inject('PG') private clientPg: Client,
+    ){}
 
-  private counterId = 1;
-  private users:User[]=[{
-    id: 1,
-    name:'string',
-    email:'string',
-    password:'string',
-    role: 'string',
-  },]
 
-  getInfoDB(){
-    return new Promise((resolve, reject) => {
-      this.clientPg.query('SELECT * FROM tasks', (err, res) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(res.rows);
-      });
-    });
-  }
+  //getInfoDB(){
+  //  return new Promise((resolve, reject) => {
+  //    this.clientPg.query('SELECT * FROM tasks', (err, res) => {
+  //      if (err) {
+  //        reject(err);
+  //      }
+  //      resolve(res.rows);\
+  //    });
+  //  });
+  //}
 
   findAll() {
-    return this.users;
+    return this.users.find();
   }
 
-  findOne(id: number) {
-    const user = this.users.find((item) => item.id == id);
+  async findOne(id: string) {
+    const user = await this.users.findOneBy({email:id});
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);
     }
@@ -44,33 +41,26 @@ export class UsersService {
 
   findByEmail
 
-  create(payload: CreateUserDto) {
-    console.log(payload);
-    this.counterId = this.counterId + 1;
-    const newUser = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.users.push(newUser);
-    return newUser;
-  }
-
-  update(id: number, payload: UpdateUserDto) {
-    const user = this.findOne(id);
-    const index = this.users.findIndex((item) => item.id === id);
-    this.users[index] = {
-      ...user,
-      ...payload,
-    };
-    return this.users[index];
-  }
-
-  remove(id: number) {
-    const index = this.users.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`User #${id} not found`);
+  async create(payload: CreateUserDto) {
+    const findUser = await this.findOne(payload.email)
+    if(findUser){
+      throw new BadRequestException(`Usuario con mail ${payload.email} ya ingresado`)
     }
-    this.users.splice(index, 1);
-    return true;
+    const newProduct = this.users.create(payload)
+    return this.users.save(newProduct)
+  }
+
+  async update(id: number, payload: UpdateUserDto) {
+    const product = await this.users.findOneBy({id:id});
+    this.users.merge(product, payload);
+    return this.users.save(product);
+  }
+
+  async remove(id: string) {
+    const findUser = await this.findOne(id)
+    if(!findUser){
+      throw new BadRequestException(`Product #${id} not found`);
+    }
+    return this.users.delete(id)
   }
 }
