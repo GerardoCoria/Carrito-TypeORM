@@ -27,14 +27,6 @@ export class CreateProductDto{
   @ApiProperty()
   readonly stock:number;
 
-  //@IsNotEmpty()
-  //@ApiProperty({description: "Indica la categoría del producto"})
-  //readonly category:CreateCategoryDto;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly brand:string;
-
   @IsNotEmpty()
   @IsDate()
   @ApiProperty()
@@ -47,6 +39,11 @@ export class CreateProductDto{
   @IsNotEmpty()
   @ApiProperty()
   readonly image:string;
+
+  @IsNotEmpty()
+  @IsPositive()
+  @ApiProperty()
+  readonly brandId:number;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto){}

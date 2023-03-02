@@ -1,7 +1,7 @@
-import { PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, UpdateDateColumn} from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, UpdateDateColumn, ManyToOne, ManyToMany, JoinTable} from "typeorm";
 
-import { Brand } from "../entities/brand.entity";
-import { Category, CategoryName } from "../entities/category.entity";
+import { Brand } from "./brand.entity";
+import { Category } from "./category.entity";
 
 @Entity({name: 'products'})
 export class Product{
@@ -19,15 +19,6 @@ export class Product{
 
   @Column({type: 'int'})
   stock:number;
-
-  /**
-   * !ver PARA MODIFICAR
-   * */
-  //@Column({type: 'enum', enum: CategoryName, nullable: true,})
-  //category: CategoryName;
-
-  @Column({type: 'varchar', length: 255})
-  brand: string;
 
   @Column({type: 'date'})
   expires:Date;
@@ -49,4 +40,11 @@ export class Product{
     default: ()=> 'CURRENT_TIMESTAMP',
   })
   updatedAt:Date;
+
+  @ManyToOne(()=> Brand, (brand)=> brand.products)
+  brand:Brand;
+
+  @ManyToMany(()=> Category, (category)=>category.products)
+  @JoinTable()
+  category:Category[]
 }

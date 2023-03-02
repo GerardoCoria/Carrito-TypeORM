@@ -1,12 +1,15 @@
 ### Leer todas las marcas
 GET {{hostname}}/brands
 
+### Leer una sola marca
+GET {{hostname}}/brands/1
+
 ### Crear una marca
 POST {{hostname}}/brands
 Content-Type: application/json
 
 {
-  "name": "Coca Cola"
+  "name": "Molinos Río de la Plata"
 }
 
 ### Editar una marca

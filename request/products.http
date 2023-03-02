@@ -8,40 +8,40 @@ GET {{hostname}}/products?limit=3&offset=1
 GET {{hostname}}/products?minPrice=400&maxPrice=600
 
 #### Obtener producto por su ID
-GET {{hostname}}/products/3
+GET {{hostname}}/products/6
 
 ### Crear un producto
 POST {{hostname}}/products
 Content-Type: application/json
 //Authorization: {{token}}
 
+//{
+//  "name": "Aceite",
+//  "description": "Aceite de girasol, 1.5 litros",
+//  "price": 620,
+//  "stock":230,
+//  "expires": "2023-10-09",
+//  "batch": "ABC00013",
+//  https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/15-09-26-RalfR-WLC-0098_-_Coca-Cola_glass_bottle_%28Germany%29.jpg/320px-15-09-26-RalfR-WLC-0098_-_Coca-Cola_glass_bottle_%28Germany%29.jpg "https://www.marolio.com.ar/sites/default/files/styles/blog_image/public/AceiteGirasol1500.jpg?itok=RHJkQC-W",
+//  "brandId": 1
+//}
 {
-  "name": "Chocolate",
-  "description": "Chocolate negro en barra",
-  "price": 690,
-  "stock":452,
-  "brand": "Arcor",
-  "expires": "2023-09-09",
-  "batch": "ABC113",
-  "image": "https://statics-cuidateplus.marca.com/cms/styles/amp_1200x675_16_9/azblob/chocolate-tableta.jpg.webp?itok=A596xmW8"
+  "name": "Arroz blanco",
+  "description": "Arroz blanco, 1 kg",
+  "price": 240,
+  "stock":824,
+  "expires": "2023-08-08",
+  "batch": "ABT523",
+  "image": "https://http2.mlstatic.com/D_NQ_NP_807275-MLA46259738552_062021-O.jpg",
+  "brandId": 1
 }
 
-//{
-//  "name": "Gaseosa lima limón",
-//  "description": "Gaseosa sabor lima limón, 1.5 litros",
-//  "price": 380,
-//  "stock":987,
-//  "brand": "Marolio",
-//  "expires": "2023-09-09",
-//  "batch": "ABC123"
-//}
-
 ### Modificar producto
-PUT {{hostname}}/products/2
+PUT {{hostname}}/products/6
 Content-Type: application/json
 
 {
-  "stock":983
+  "brandId": 3
 }
 
 ### Borrar producto

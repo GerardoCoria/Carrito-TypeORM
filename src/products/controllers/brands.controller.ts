@@ -5,6 +5,7 @@ import { BrandsService } from '../services/brands.service';
 
 @Controller('brands')
 export class BrandsController {
+  
   constructor(private brandsService: BrandsService) {}
 
   @Get()

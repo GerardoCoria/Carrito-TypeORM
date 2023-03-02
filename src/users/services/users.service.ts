@@ -46,20 +46,20 @@ export class UsersService {
     if(findUser){
       throw new BadRequestException(`Usuario con mail ${payload.email} ya ingresado`)
     }
-    const newProduct = this.users.create(payload)
-    return this.users.save(newProduct)
+    const newUser = this.users.create(payload)
+    return this.users.save(newUser)
   }
 
   async update(id: number, payload: UpdateUserDto) {
-    const product = await this.users.findOneBy({id:id});
-    this.users.merge(product, payload);
-    return this.users.save(product);
+    const user = await this.users.findOneBy({id:id});
+    this.users.merge(user, payload);
+    return this.users.save(user);
   }
 
   async remove(id: string) {
     const findUser = await this.findOne(id)
     if(!findUser){
-      throw new BadRequestException(`Product #${id} not found`);
+      throw new BadRequestException(`User #${id} not found`);
     }
     return this.users.delete(id)
   }
