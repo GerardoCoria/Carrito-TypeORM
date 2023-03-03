@@ -1,17 +1,29 @@
+import { CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IsNotEmpty } from "class-validator";
 
-import { User } from "src/users/entities/user.entity";
-import { Product } from "../../products/entities/product.entity";
+import { Customer } from "../../users/entities/customer.entity";
+import { OrderItem } from "./order-item.entity";
 
+@Entity({name: 'orders'})
 export class Order{
+  @PrimaryGeneratedColumn()
   id:number;
-  name:string;
-  //date:Date;
-  //customer: User;
-  //products:Product;
-  //BORRAR LO DE ABAJO
-  date?:any;
-  customer?:any;
-  products?:any;
 
+  @CreateDateColumn({
+    type:'timestamptz',
+    default: ()=> 'CURRENT_TIMESTAMP',
+  })
+  createdAt:Date;
+
+  @UpdateDateColumn({
+    type:'timestamptz',
+    default: ()=> 'CURRENT_TIMESTAMP',
+  })
+  updatedAt:Date;
+
+  @ManyToOne(()=> Customer, (customer)=> customer.orders)
+  customer:Customer;
+
+  @OneToMany(()=>OrderItem, (items)=>items.order)
+  items:OrderItem[];
 }

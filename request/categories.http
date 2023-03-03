@@ -2,14 +2,14 @@
 GET {{hostname}}/categories
 
 ### Leer una categoría
-GET {{hostname}}/categories/2
+GET {{hostname}}/categories/4
 
 ### Crear una categoría
 POST {{hostname}}/categories
 Content-Type: application/json
 
 {
-  "name": "Almacén"
+  "name": "Lácteos"
 }
 
 ### Editar una categoría

@@ -1,4 +1,6 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from "typeorm";
+
+import { Customer } from "./customer.entity";
 
 @Entity({name: 'users'})
 export class User{
@@ -15,8 +17,7 @@ export class User{
   email:string;
 
     /**
-   *  !ENCRIPTAR
-   * */
+*  !ENCRIPTAR */
   @Column({type: 'varchar', length: 255, unique: true})
   password:string;
 
@@ -37,4 +38,8 @@ export class User{
     default: ()=> 'CURRENT_TIMESTAMP',
   })
   updatedAt:Date;
+
+  @OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
+  @JoinColumn()
+  customer: Customer;
 }

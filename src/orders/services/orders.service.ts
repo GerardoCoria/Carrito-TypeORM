@@ -1,4 +1,6 @@
-import { ForbiddenException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { AuthService } from '../../auth/services/auth.service';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos/orders.dto';
@@ -7,23 +9,18 @@ import { Order } from '../entities/order.entity';
 @Injectable()
 export class OrdersService {
 
-  private counterId = 1;
-  private orders: Order[] = [{
-    id: 1,
-    name:'string'
-    //date:Date;
-    //customer: User;
-    //products:Product;
-  }]
+  constructor(@InjectRepository(Order) private orders:Repository<Order>){}
 
   findAll() {
-    return this.orders;
+    return this.orders.find();
   }
 
-  findOne(id: number) {
-    const order = this.orders.find((item) => item.id === id);
+  async findOne(id: number) {
+    const order = await this.orders.findOne({
+      where:{id:id}
+    });
     if (!order) {
-      throw new NotFoundException(`Order #${id} not found`);
+      throw new NotFoundException(`Marca #${id} no encontrada`);
     }
     return order;
   }
@@ -32,33 +29,22 @@ export class OrdersService {
   oneByCustomer
   oneItemFromOrder
 
-  create(payload: CreateOrderDto) {
-    console.log(payload);
-    this.counterId = this.counterId + 1;
-    const newOrder = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.orders.push(newOrder);
-    return newOrder;
+  create(payload: /* CreateOrderDto */ any) {
+    const newOrder = this.orders.create(payload);
+    return this.orders.save(newOrder)
   }
 
-  update(id: number, payload: UpdateOrderDto) {
-    const order = this.findOne(id);
-    const index = this.orders.findIndex((item) => item.id === id);
-    this.orders[index] = {
-      ...order,
-      ...payload,
-    };
-    return this.orders[index];
+  async update(id: number, payload: UpdateOrderDto) {
+    const order = await this.orders.findOneBy({id:id});
+    this.orders.merge(order, payload);
+    return this.orders.save(order);
   }
 
-  remove(id: number) {
-    const index = this.orders.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`Order #${id} not found`);
+  async remove(id: number) {
+    const findOrder = await this.findOne(id)
+    if(!findOrder){
+      throw new BadRequestException(`Order con #${id} no encontrada`);
     }
-    this.orders.splice(index, 1);
-    return true;
+    return this.orders.delete({id:id})
   }
 }

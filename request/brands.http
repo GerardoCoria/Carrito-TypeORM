@@ -9,7 +9,7 @@ POST {{hostname}}/brands
 Content-Type: application/json
 
 {
-  "name": "Molinos Río de la Plata"
+  "name": "La Serenísima"
 }
 
 ### Editar una marca

@@ -45,6 +45,27 @@ export class ProductsController {
     return this.services.update(id, payload)
   }
 
+  @Put(':id/category/:categoryId')
+  //Roles
+  @ApiOperation({summary:'Agrega una categoría relacionada a un producto determinado'})
+  addCategory(
+    @Param('id', ParseIntPipe) idProduct:number,
+    @Param('categoryId', ParseIntPipe) idCategory:number
+  ){
+    return this.services.addCategory(idProduct, idCategory)
+  }
+
+  @Delete(':id/category/:categoryId')
+  //Roles
+  @ApiOperation({summary:'Elimina una categoría relacionada a un producto determinado'})
+  deleteCategory(
+    @Param('id', ParseIntPipe) idProduct:number,
+    @Param('categoryId', ParseIntPipe) idCategory:number
+  ){
+    return this.services.removeCategory(idProduct, idCategory)
+  }
+
+
   @Delete(':id')
   @Roles(Role.ADMIN)
   @ApiOperation({summary:'Elimina el producto seleccionado por su N° de ID'})

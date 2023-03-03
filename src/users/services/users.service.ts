@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, HttpStatus, Inject, Injectable, NotFoundException} from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Client } from 'pg';
@@ -13,19 +13,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User) private users:Repository<User>
      //@Inject('PG') private clientPg: Client,
-    ){}
-
-
-  //getInfoDB(){
-  //  return new Promise((resolve, reject) => {
-  //    this.clientPg.query('SELECT * FROM tasks', (err, res) => {
-  //      if (err) {
-  //        reject(err);
-  //      }
-  //      resolve(res.rows);\
-  //    });
-  //  });
-  //}
+  ){}
 
   findAll() {
     return this.users.find();
