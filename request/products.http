@@ -5,7 +5,7 @@ GET {{hostname}}/products
 GET {{hostname}}/products?limit=3&offset=1
 
 #### Filtrar por precio
-GET {{hostname}}/products?minPrice=400&maxPrice=600
+GET {{hostname}}/products?minPrice=600&maxPrice=1000
 
 #### Obtener producto por su ID
 GET {{hostname}}/products/8

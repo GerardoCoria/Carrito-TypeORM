@@ -1,5 +1,5 @@
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from "@nestjs/common";
+import { NestFactory, Reflector } from '@nestjs/core';
+import { ValidationPipe, ClassSerializerInterceptor } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import * as basicAuth from 'express-basic-auth';
 
@@ -24,6 +24,8 @@ async function bootstrap() {
       [process.env.SWAGGER_USER]: process.env.SWAGGER_PASSWORD,
     },
   }));
+
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   if(process.env.NODE_ENV !== 'prod'){
     const config = new DocumentBuilder()

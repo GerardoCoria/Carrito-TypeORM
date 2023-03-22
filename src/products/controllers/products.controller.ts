@@ -21,7 +21,7 @@ export class ProductsController {
   @Public()
   @ApiOperation({summary:'Retorna todos los productos.'})
   getAll(@Query() params:FilterProductsDto){
-    return this.services.findAll()
+    return this.services.findAll(params)
   }
 
   @Get(':id')

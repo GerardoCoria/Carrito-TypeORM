@@ -1,18 +1,32 @@
 ### Obtener órdenes
-GET {{hostname}}/orders/
+GET {{hostname}}/orders
+
+### Obtener una sola órden
+GET {{hostname}}/orders/5
 
 ### Nueva orden
-POST {{hostname}}/orders/
+POST {{hostname}}/orders
 Content-Type: application/json
 
 {
-  "name":"Compra N° 3",
-  "date":"2022-02-02",
-  "customer":"63d8406b649b86d9ae7d34c0",
-  "products":[
-    "63d3ce128b1797f8ea55923b"
-  ]
+  "customerId":1
 }
+
+### Agregar productos a una orden
+POST {{hostname}}/orden-item
+Content-Type: application/json
+
+{
+  "orderId":5,
+  "productId":4,
+  "quantity":2
+}
+
+
+### Eliminar orden
+DELETE {{hostname}}/orders/2
+
+
 
 // PERFIL DE CADA USUARIO
 ### Leer perfil
@@ -33,4 +47,3 @@ Authorization: Bearer {{token}}
       "63d00e84ccb95f93936cda9e"
     ]
 }
-### Eliminar orden

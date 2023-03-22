@@ -1,0 +1,29 @@
+### Obtener todos los clientes
+GET {{hostname}}/customer
+
+### Traer un solo cliente
+GET {{hostname}}/customer/1
+
+
+### Nuevo cliente
+POST {{hostname}}/customer
+Content-Type: application/json
+
+{
+  "name":"Emily",
+  "lastname":"Rvgn",
+  "phone": "0303456"
+}
+
+### Modificar cliente
+PUT {{hostname}}/customer/pansa@mail.com
+Content-Type: application/json
+
+{
+	"role":"admin"
+}
+
+### Borrar cliente
+DELETE {{hostname}}/customer/63d94a947476cb97670c9848
+
+
